@@ -250,8 +250,6 @@
                     <button class="btn btn-ghost" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>
                     <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / trừ ngày</button>
                     <button class="btn btn-ghost" onclick="selectTool('weekday')">Tìm thứ</button>
-                    <button class="btn btn-ghost" data-tool="days" onclick="selectTool('days')">Tính số ngày</button>
-
                 </div>
 
                 <div id="tool-area" style="margin-top:16px">
@@ -284,7 +282,7 @@
 
                             <div>
                                 <label for="base-date">Ngày gốc</label>
-                                <input id="base-date" type="date" required />
+                                <input id="base-date" type="date"  required />
                             </div>
                         </div>
                         <div class="actions">
@@ -306,31 +304,6 @@
                         </div>
                         <div id="result-weekday" class="result" style="display:none"></div>
                     </form>
-
-                    <!-- Days calculator -->
-                    <form id="tool-days" style="display:none;margin-top:12px">
-                        <h4>Tính số ngày</h4>
-                        <div>
-                            <label for="unit-price">Đơn giá</label>
-                            <select id="unit-price" onchange="syncAmount()">
-                                <option value="120000">120.000</option>
-                                <option value="100000">100.000</option>
-                            </select>
-                        </div>
-                        <div style="margin-top:12px">
-                            <label for="amount">Số tiền</label>
-                            <input id="amount" type="number" value="120000" oninput="calcDays()" />
-                        </div>
-                        <div style="margin-top:12px">
-                            <label for="result-days">Kết quả (ngày)</label>
-                            <input id="result-days" type="text" readonly />
-                        </div>
-                        <div class="actions">
-                            <button type="button" class="btn btn-primary" onclick="calcDays()">Tính</button>
-                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();syncAmount();clearResultDays()">Đặt lại</button>
-                        </div>
-                    </form>
-
                 </div>
             </section>
 
@@ -356,8 +329,7 @@
         const el = id => document.getElementById(id);
         const formatDate = d => d.toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
         function clearResult() { ['result-diff', 'result-add', 'result-weekday'].forEach(id => { el(id).style.display = 'none'; el(id).innerHTML = ''; }); }
-        //function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
-        function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday', 'tool-days'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
+        function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
 
         selectTool('add');
 
@@ -386,16 +358,6 @@
         }
 
         function calcWeekday() { const t = el('target-date').value; if (!t) { alert('Chọn ngày'); return; } const d = new Date(t); d.setHours(12); const names = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy']; const r = el('result-weekday'); r.style.display = 'block'; r.innerHTML = `<p><b>${formatDate(d)}</b> là <b>${names[d.getDay()]}</b>.</p>`; }
-        function syncAmount() {
-            const price = Number(el('unit-price').value);
-            //el('amount').value = price;
-            calcDays();
-        }
-        //function updateAmount() { const price = +el('unit-price').value; el('amount').value = price; }
-        function calcDays() { const price = +el('unit-price').value, amount = +el('amount').value; if (!price || !amount) { alert('Nhập số tiền'); return } const days = (amount / (price / 365)).toFixed(0); el('result-days').value = days; }
-        
-
-
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>

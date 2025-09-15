@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tính ngày tháng — Date Calculator</title>
+    <title>Máy tính Ngày tháng — Date Calculator</title>
     <meta name="description" content="Trang web nhỏ giúp tính toán ngày tháng: cộng/trừ ngày, tính khoảng cách giữa 2 ngày, tìm thứ của một ngày." />
     <style>
         :root {
@@ -29,8 +29,8 @@
             margin: 0;
             background: linear-gradient(180deg,var(--bg),#f7fbfc);
             color: #0f172a;
-            padding: 24px;
             line-height: 1.4;
+            padding: 24px;
         }
 
         .container {
@@ -64,6 +64,11 @@
             color: white;
             font-weight: 700;
             box-shadow: var(--shadow);
+        }
+
+        .brand h1 {
+            font-size: 18px;
+            margin: 0
         }
 
         nav ul {
@@ -101,11 +106,19 @@
         }
 
         .hero h2 {
-            margin: 0 0 8px;
+            margin: 0 0 8px 0;
             font-size: 20px
         }
 
+        .hero p {
+            color: var(--muted);
+            margin: 0
+        }
+
         .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 10px 14px;
             border-radius: 10px;
             background: linear-gradient(90deg,var(--accent),var(--accent-2));
@@ -128,6 +141,10 @@
             padding: 18px;
             box-shadow: var(--shadow);
         }
+
+            .card h3 {
+                margin: 0 0 12px 0
+            }
 
         .muted {
             color: var(--muted);
@@ -187,9 +204,18 @@
             border: 1px solid #edf9f9
         }
 
+            .result p {
+                margin: 6px 0
+            }
+
         aside .card {
             position: sticky;
             top: 24px
+        }
+
+        .small {
+            font-size: 13px;
+            color: var(--muted)
         }
 
         footer {
@@ -197,14 +223,18 @@
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            padding: 12px 0 0;
+            padding: 12px 0 0 0;
             color: var(--muted);
             flex-wrap: wrap
         }
 
-        @media(max-width:880px) {
+        @media (max-width:880px) {
             main {
                 grid-template-columns: 1fr
+            }
+
+            aside {
+                order: 2
             }
 
             .hero {
@@ -215,13 +245,13 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" role="document">
         <header>
             <div class="brand">
                 <div class="logo">DC</div>
                 <div>
                     <h1>Máy tính Ngày tháng</h1>
-                    <div class="muted">Nhanh — Đơn giản — Chính xác</div>
+                    <div class="small">Nhanh — Đơn giản — Chính xác</div>
                 </div>
             </div>
             <nav>
@@ -236,73 +266,75 @@
 
         <section class="hero" id="home">
             <div class="hero-text">
-                <h2>Tính toán với ngày tháng một cách nhanh và trực quan</h2>
-                <p class="muted">Tính khoảng cách giữa hai ngày, cộng/trừ số ngày, hoặc tìm ra thứ trong tuần cho một ngày bất kỳ.</p>
+                <h2>Tính toán với ngày tháng — nhanh và trực quan</h2>
+                <p class="muted">Tính khoảng cách giữa hai ngày, cộng/trừ số ngày, tìm thứ, hoặc tính số ngày từ số tiền.</p>
             </div>
-            <button class="cta" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Bắt đầu ➜</button>
+            <div>
+                <button class="cta" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Bắt đầu ➜</button>
+            </div>
         </section>
 
         <main>
             <section class="card" id="calculator">
                 <h3>Bảng công cụ</h3>
-                <p class="muted">Chọn công cụ bạn muốn sử dụng dưới đây.</p>
                 <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
                     <button class="btn btn-ghost" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>
-                    <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / trừ ngày</button>
+                    <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / Trừ ngày</button>
                     <button class="btn btn-ghost" onclick="selectTool('weekday')">Tìm thứ</button>
-                    <button class="btn btn-ghost" data-tool="days" onclick="selectTool('days')">Tính số ngày</button>
-
+                    <button class="btn btn-ghost" onclick="selectTool('days')">Tính số ngày</button>
                 </div>
 
                 <div id="tool-area" style="margin-top:16px">
+                    <!-- Diff -->
                     <form id="tool-diff">
                         <h4>Khoảng cách giữa hai ngày</h4>
                         <div class="grid-2">
                             <div>
                                 <label for="from-date">Từ ngày</label>
-                                <input id="from-date" type="date" required />
+                                <input id="from-date" type="date" />
                             </div>
                             <div>
                                 <label for="to-date">Đến ngày</label>
-                                <input id="to-date" type="date" required />
+                                <input id="to-date" type="date" />
                             </div>
                         </div>
                         <div class="actions">
                             <button type="button" class="btn btn-primary" onclick="calcDiff()">Tính</button>
-                            <button type="button" class="btn btn-ghost" onclick="this.closest('form').reset();clearResult()">Đặt lại</button>
+                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();clearResult()">Đặt lại</button>
                         </div>
                         <div id="result-diff" class="result" style="display:none"></div>
                     </form>
 
+                    <!-- Add/Subtract -->
                     <form id="tool-add" style="display:none;margin-top:12px">
-                        <h4>Cộng / trừ ngày</h4>
+                        <h4>Cộng / Trừ ngày</h4>
                         <div class="grid-2">
                             <div>
-                                <label for="days">Số ngày</label>
-                                <input id="days" type="number" value="395" />
-                            </div>
-
-                            <div>
                                 <label for="base-date">Ngày gốc</label>
-                                <input id="base-date" type="date" required />
+                                <input id="base-date" type="date" />
+                            </div>
+                            <div>
+                                <label for="days">Số ngày</label>
+                                <input id="days" type="number" value="1" />
                             </div>
                         </div>
                         <div class="actions">
                             <button type="button" class="btn btn-primary" onclick="calcAdd()">Tính</button>
-                            <button type="button" class="btn btn-ghost" onclick="this.closest('form').reset();clearResult()">Đặt lại</button>
+                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();clearResult()">Đặt lại</button>
                         </div>
                         <div id="result-add" class="result" style="display:none"></div>
                     </form>
 
+                    <!-- Weekday -->
                     <form id="tool-weekday" style="display:none;margin-top:12px">
                         <h4>Tìm thứ trong tuần</h4>
                         <div>
                             <label for="target-date">Chọn ngày</label>
-                            <input id="target-date" type="date" required />
+                            <input id="target-date" type="date" />
                         </div>
                         <div class="actions">
                             <button type="button" class="btn btn-primary" onclick="calcWeekday()">Tìm</button>
-                            <button type="button" class="btn btn-ghost" onclick="this.closest('form').reset();clearResult()">Đặt lại</button>
+                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();clearResult()">Đặt lại</button>
                         </div>
                         <div id="result-weekday" class="result" style="display:none"></div>
                     </form>
@@ -312,14 +344,14 @@
                         <h4>Tính số ngày</h4>
                         <div>
                             <label for="unit-price">Đơn giá</label>
-                            <select id="unit-price" onchange="syncAmount()">
+                            <select id="unit-price" onchange="updateAmount()">
                                 <option value="120000">120.000</option>
                                 <option value="100000">100.000</option>
                             </select>
                         </div>
                         <div style="margin-top:12px">
                             <label for="amount">Số tiền</label>
-                            <input id="amount" type="number" value="120000" oninput="calcDays()" />
+                            <input id="amount" type="number" />
                         </div>
                         <div style="margin-top:12px">
                             <label for="result-days">Kết quả (ngày)</label>
@@ -327,76 +359,60 @@
                         </div>
                         <div class="actions">
                             <button type="button" class="btn btn-primary" onclick="calcDays()">Tính</button>
-                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();syncAmount();clearResultDays()">Đặt lại</button>
+                            <button type="button" class="btn btn-ghost" onclick="this.form.reset();updateAmount();clearResultDays()">Đặt lại</button>
                         </div>
                     </form>
-
                 </div>
             </section>
 
             <aside>
                 <div class="card" id="about">
                     <h3>Hướng dẫn nhanh</h3>
-                    <p class="muted">Trang này hoạt động hoàn toàn trên trình duyệt.</p>
+                    <p class="small">Trang này hoạt động hoàn toàn trên trình duyệt, không cần kết nối Internet.</p>
+                    <ul class="small" style="padding-left:18px">
+                        <li>Khoảng cách 2 ngày</li>
+                        <li>Cộng / Trừ ngày</li>
+                        <li>Tìm thứ</li>
+                        <li>Tính số ngày từ số tiền và đơn giá</li>
+                    </ul>
                 </div>
                 <div style="height:12px"></div>
                 <div class="card" id="contact">
                     <h3>Thông tin</h3>
-                    <p class="muted">Phiên bản nhẹ - phù hợp để nhúng vào dự án hoặc mở rộng thêm.</p>
+                    <p class="small">Phiên bản nhẹ — dễ chỉnh sửa và mở rộng.</p>
                 </div>
             </aside>
         </main>
 
         <footer>
-            <div class="muted">© <span id="year"></span> Máy tính Ngày tháng</div>
-            <div class="muted">Made with ❤️ — Đơn giản & tiện dụng</div>
+            <div class="small">© <span id="year"></span> Máy tính Ngày tháng</div>
+            <div class="small">Made with ❤️</div>
         </footer>
     </div>
+
     <script>
         const el = id => document.getElementById(id);
         const formatDate = d => d.toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
-        function clearResult() { ['result-diff', 'result-add', 'result-weekday'].forEach(id => { el(id).style.display = 'none'; el(id).innerHTML = ''; }); }
-        //function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
-        function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday', 'tool-days'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
 
-        selectTool('add');
+        function clearResult() { ['result-diff', 'result-add', 'result-weekday'].forEach(id => { const e = el(id); e.style.display = 'none'; e.innerHTML = ''; }) }
+        function clearResultDays() { el('result-days').value = ''; }
 
-        // Gán ngày mặc định: 01/MM/YYYY (MM = tháng hiện tại, YYYY = năm hiện tại - 1)
-        document.addEventListener('DOMContentLoaded', () => {
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0'); // tháng hiện tại
-            const year = now.getFullYear() - 1; // năm trước
-            const defaultDate = `${year}-${month}-01`; // định dạng YYYY-MM-DD
-            el('base-date').value = defaultDate;
-        });
-
-
-        function calcDiff() { const f = el('from-date').value, t = el('to-date').value; if (!f || !t) { alert('Chọn đủ ngày'); return; } const d1 = new Date(f), d2 = new Date(t); d1.setHours(12); d2.setHours(12); const days = Math.round((d2 - d1) / (86400000)); const absDays = Math.abs(days); const weeks = Math.floor(absDays / 7); const rem = absDays % 7; const r = el('result-diff'); r.style.display = 'block'; r.innerHTML = `Từ <b>${formatDate(d1)}</b> đến <b>${formatDate(d2)}</b>:<br><p><b>${days}</b> ngày (${weeks} tuần ${rem} ngày)</p>`; }
-
-        function calcAdd() {
-            const base = el('base-date').value; const days = Number(el('days').value) || 0; if (!base) { alert('Chọn ngày gốc'); return; } const d = new Date(base); d.setHours(12); const result = new Date(d.getTime() + days * 86400000); const now = new Date(); now.setHours(12);
-            const diff = Math.round((result - now) / 86400000);
-            const r = el('result-add'); r.style.display = 'block';
-            const sn = diff + 365;
-            r.innerHTML = `<p>Ngày gốc: <b>${formatDate(d)}</b></p>` +
-                `<p>Kết quả sau <b>${days}</b> ngày: <b>${formatDate(result)}</b></p>` +
-                `<p>Hôm nay: <b>${formatDate(now)}</b></p>` +
-                `<p>Số ngày còn lại: <b>${diff}</b> ngày</p>` + 
-                `<p>Số ngày cộng 365: <b>${sn}</b> ngày</p>`;
+        function selectTool(name) {
+            ['tool-diff', 'tool-add', 'tool-weekday', 'tool-days'].forEach(id => el(id).style.display = 'none');
+            el('tool-' + name).style.display = 'block'; clearResult();
         }
+        selectTool('diff');
 
-        function calcWeekday() { const t = el('target-date').value; if (!t) { alert('Chọn ngày'); return; } const d = new Date(t); d.setHours(12); const names = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy']; const r = el('result-weekday'); r.style.display = 'block'; r.innerHTML = `<p><b>${formatDate(d)}</b> là <b>${names[d.getDay()]}</b>.</p>`; }
-        function syncAmount() {
-            const price = Number(el('unit-price').value);
-            //el('amount').value = price;
-            calcDays();
-        }
-        //function updateAmount() { const price = +el('unit-price').value; el('amount').value = price; }
-        function calcDays() { const price = +el('unit-price').value, amount = +el('amount').value; if (!price || !amount) { alert('Nhập số tiền'); return } const days = (amount / (price / 365)).toFixed(0); el('result-days').value = days; }
-        
+        function calcDiff() { const f = el('from-date').value, t = el('to-date').value; if (!f || !t) { alert('Chọn ngày'); return } const d1 = new Date(f), d2 = new Date(t); d1.setHours(12, 0, 0, 0); d2.setHours(12, 0, 0, 0); const days = Math.round((d2 - d1) / 86400000); const abs = Math.abs(days); const weeks = Math.floor(abs / 7), rem = abs % 7; const r = el('result-diff'); r.style.display = 'block'; r.innerHTML = `Từ <b>${formatDate(d1)}</b> đến <b>${formatDate(d2)}</b>: ${days} ngày (${weeks} tuần ${rem} ngày)`; }
 
+        function calcAdd() { const base = el('base-date').value, days = +el('days').value || 0; if (!base) { alert('Chọn ngày gốc'); return } const d = new Date(base); d.setHours(12, 0, 0, 0); const result = new Date(d.getTime() + days * 86400000); const today = new Date(); today.setHours(12, 0, 0, 0); const diffToday = Math.round((result - today) / 86400000); const r = el('result-add'); r.style.display = 'block'; r.innerHTML = `<p>Ngày gốc: <b>${formatDate(d)}</b></p><p>Kết quả: <b>${formatDate(result)}</b></p><p>Hôm nay: <b>${formatDate(today)}</b></p><p>Khoảng cách từ hôm nay: <b>${diffToday}</b> ngày</p>`; }
 
-        document.getElementById('year').textContent = new Date().getFullYear();
+        function calcWeekday() { const t = el('target-date').value; if (!t) { alert('Chọn ngày'); return } const d = new Date(t); d.setHours(12, 0, 0, 0); const names = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy']; const r = el('result-weekday'); r.style.display = 'block'; r.innerHTML = `<p><b>${formatDate(d)}</b> là <b>${names[d.getDay()]}</b></p>`; }
+
+        function updateAmount() { const price = +el('unit-price').value; el('amount').value = price; }
+        function calcDays() { const price = +el('unit-price').value, amount = +el('amount').value; if (!price || !amount) { alert('Nhập số tiền'); return } const days = (amount / (price / 365)).toFixed(2); el('result-days').value = days; }
+
+        document.addEventListener('DOMContentLoaded', () => { document.getElementById('year').textContent = new Date().getFullYear(); updateAmount(); });
     </script>
 </body>
 </html>
