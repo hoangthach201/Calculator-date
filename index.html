@@ -161,9 +161,10 @@
 
         <!-- Tabs selector -->
         <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost" data-tool="weekday" onclick="selectTool('weekday')">Tìm thứ</button>
           <button class="btn btn-ghost" data-tool="diff" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>
           <button class="btn btn-ghost" data-tool="add" onclick="selectTool('add')">Cộng / Trừ ngày</button>
-          <button class="btn btn-ghost" data-tool="weekday" onclick="selectTool('weekday')">Tìm thứ</button>
+          
         </div>
 
         <!-- Tool panels -->
@@ -192,14 +193,15 @@
           <form id="tool-add" style="display:none;margin-top:12px">
             <h4>Cộng / Trừ ngày</h4>
             <div class="grid-2">
-              <div>
-                <label for="base-date">Ngày gốc</label>
-                <input id="base-date" type="date" required />
-              </div>
-              <div>
-                <label for="days">Số ngày (nhập số, âm để trừ)</label>
-                <input id="days" type="number" value="1" />
-              </div>
+                <div>
+                    <label for="days">Số ngày (nhập số, âm để trừ)</label>
+                    <input id="days" type="number" value="1" />
+                </div>
+
+                <div>
+                    <label for="base-date">Ngày gốc</label>
+                    <input id="base-date" type="date" required />
+                </div>
             </div>
             <div class="actions">
               <button type="button" class="btn btn-primary" onclick="calcAdd()">Tính</button>
@@ -229,7 +231,7 @@
       <aside>
         <div class="card" id="about">
           <h3>Hướng dẫn nhanh</h3>
-          <p class="small">Trang này hoạt động hoàn toàn trên trình duyệt, không cần kết nối Internet. Chỉ cần chọn ngày và nhấn nút tính.</p>
+          <p class="small">Trang này hoạt động hoàn toàn trên trình duyệt. Chỉ cần chọn ngày và nhấn nút tính.</p>
           <ul class="small" style="padding-left:18px">
             <li><strong>Khoảng cách 2 ngày</strong>: trả về số ngày (bao gồm/không bao gồm) và số tuần + ngày.</li>
             <li><strong>Cộng / Trừ</strong>: nhập số ngày dương hoặc âm.</li>
