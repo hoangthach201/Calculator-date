@@ -247,10 +247,10 @@
                 <h3>Bảng công cụ</h3>
                 <p class="muted">Chọn công cụ bạn muốn sử dụng dưới đây.</p>
                 <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-                    <button class="btn btn-ghost" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>
+                    <button class="btn btn-ghost" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>                    
+                    <button class="btn btn-ghost" onclick="selectTool('weekday')">Tìm thứ trong tuần</button>
+                    <button class="btn btn-ghost" data-tool="days" onclick="selectTool('days')">Tính số ngày theo số tiền</button>
                     <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / trừ ngày</button>
-                    <button class="btn btn-ghost" onclick="selectTool('weekday')">Tìm thứ</button>
-                    <button class="btn btn-ghost" data-tool="days" onclick="selectTool('days')">Tính số ngày</button>
 
                 </div>
 
@@ -283,7 +283,7 @@
                             </div>
 
                             <div>
-                                <label for="base-date">Ngày gốc</label>
+                                <label for="base-date">Từ ngày</label>
                                 <input id="base-date" type="date" required />
                             </div>
                         </div>
@@ -313,13 +313,13 @@
                         <div>
                             <label for="unit-price">Đơn giá</label>
                             <select id="unit-price" onchange="syncAmount()">
-                                <option value="120000">120.000</option>
-                                <option value="100000">100.000</option>
+                                <option value="120">120k</option>
+                                <option value="100">100k</option>
                             </select>
                         </div>
                         <div style="margin-top:12px">
                             <label for="amount">Số tiền</label>
-                            <input id="amount" type="number" value="120000" oninput="calcDays()" />
+                            <input id="amount" type="number" value="120" oninput="calcDays()" />
                         </div>
                         <div style="margin-top:12px">
                             <label for="result-days">Kết quả (ngày)</label>
