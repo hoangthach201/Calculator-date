@@ -309,7 +309,7 @@
 
                     <!-- Days calculator -->
                     <form id="tool-days" style="display:none;margin-top:12px">
-                        <h4>Tính số ngày</h4>
+                        <h4>Tính số ngày theo số tiền</h4>
                         <div>
                             <label for="unit-price">Đơn giá</label>
                             <select id="unit-price" onchange="syncAmount()">
@@ -318,7 +318,7 @@
                             </select>
                         </div>
                         <div style="margin-top:12px">
-                            <label for="amount">Số tiền</label>
+                            <label for="amount" onclick="document.getElementById('amount').select()">Số tiền</label>
                             <input id="amount" type="number" value="120" oninput="calcDays()" />
                         </div>
                         <div style="margin-top:12px">
