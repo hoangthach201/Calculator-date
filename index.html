@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Máy tính Ngày tháng — Date Calculator</title>
+    <title>Tính ngày tháng — Date Calculator</title>
     <meta name="description" content="Trang web nhỏ giúp tính toán ngày tháng: cộng/trừ ngày, tính khoảng cách giữa 2 ngày, tìm thứ của một ngày." />
     <style>
         :root {
@@ -236,7 +236,7 @@
 
         <section class="hero" id="home">
             <div class="hero-text">
-                <h2>Tính toán với ngày tháng — nhanh và trực quan</h2>
+                <h2>Tính toán với ngày tháng một cách nhanh và trực quan</h2>
                 <p class="muted">Tính khoảng cách giữa hai ngày, cộng/trừ số ngày, hoặc tìm ra thứ trong tuần cho một ngày bất kỳ.</p>
             </div>
             <button class="cta" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Bắt đầu ➜</button>
@@ -248,7 +248,7 @@
                 <p class="muted">Chọn công cụ bạn muốn sử dụng dưới đây.</p>
                 <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
                     <button class="btn btn-ghost" onclick="selectTool('diff')">Khoảng cách 2 ngày</button>
-                    <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / Trừ ngày</button>
+                    <button class="btn btn-ghost" onclick="selectTool('add')">Cộng / trừ ngày</button>
                     <button class="btn btn-ghost" onclick="selectTool('weekday')">Tìm thứ</button>
                 </div>
 
@@ -330,7 +330,9 @@
         const formatDate = d => d.toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' });
         function clearResult() { ['result-diff', 'result-add', 'result-weekday'].forEach(id => { el(id).style.display = 'none'; el(id).innerHTML = ''; }); }
         function selectTool(name) { ['tool-diff', 'tool-add', 'tool-weekday'].forEach(id => el(id).style.display = 'none'); el('tool-' + name).style.display = 'block'; clearResult(); }
+
         selectTool('add');
+
         // Gán ngày mặc định: 01/MM/YYYY (MM = tháng hiện tại, YYYY = năm hiện tại - 1)
         document.addEventListener('DOMContentLoaded', () => {
             const now = new Date();
@@ -351,7 +353,7 @@
             r.innerHTML = `<p>Ngày gốc: <b>${formatDate(d)}</b></p>` +
                 `<p>Kết quả sau <b>${days}</b> ngày: <b>${formatDate(result)}</b></p>` +
                 `<p>Hôm nay: <b>${formatDate(now)}</b></p>` +
-                `<p>Khoảng cách từ hôm nay tới kết quả: <b>${diff}</b> ngày</p>` + 
+                `<p>Số ngày còn lại: <b>${diff}</b> ngày</p>` + 
                 `<p>Số ngày cộng 365: <b>${sn}</b> ngày</p>`;
         }
 
